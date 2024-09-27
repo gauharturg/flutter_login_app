@@ -1,8 +1,6 @@
-2024/09/27-18:19:17.017 9e03 Reusing MANIFEST /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.vjXVsP/flutter_tools_chrome_device.9NCBEX/Default/shared_proto_db/MANIFEST-000001
-2024/09/27-18:19:17.017 9e03 Recovering log #7
-2024/09/27-18:19:17.018 9e03 Reusing old log /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.vjXVsP/flutter_tools_chrome_device.9NCBEX/Default/shared_proto_db/000007.log 
-2024/09/27-18:19:17.018 9e03 Delete type=0 #4
-2024/09/27-18:19:17.018 9e03 Delete type=0 #3
-2024/09/27-18:19:36.745 8303 Level-0 table #11: started
-2024/09/27-18:19:36.764 8303 Level-0 table #11: 127938 bytes OK
-2024/09/27-18:19:36.769 8303 Delete type=0 #7
+2024/09/27-20:33:32.135 8b03 Reusing MANIFEST /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.juRyH5/flutter_tools_chrome_device.JILVvC/Default/shared_proto_db/MANIFEST-000001
+2024/09/27-20:33:32.136 8b03 Recovering log #10
+2024/09/27-20:33:32.140 8b03 Reusing old log /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.juRyH5/flutter_tools_chrome_device.JILVvC/Default/shared_proto_db/000010.log 
+2024/09/27-20:33:32.140 8b03 Delete type=0 #7
+2024/09/27-20:33:32.140 8b03 Delete type=0 #4
+2024/09/27-20:33:32.140 8b03 Delete type=0 #3

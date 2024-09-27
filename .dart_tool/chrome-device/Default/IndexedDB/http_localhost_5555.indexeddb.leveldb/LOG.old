@@ -1,4 +1,7 @@
-2024/09/27-18:19:20.192 8303 Reusing MANIFEST /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.vjXVsP/flutter_tools_chrome_device.9NCBEX/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/MANIFEST-000001
-2024/09/27-18:19:20.192 8303 Recovering log #3
-2024/09/27-18:19:20.192 8303 Reusing old log /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.vjXVsP/flutter_tools_chrome_device.9NCBEX/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/000003.log 
-2024/09/27-18:19:20.218 9e03 Manual compaction at level-0 from '\x00\x06\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x07\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/09/27-20:27:41.793 a803 Reusing MANIFEST /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.xJBI0R/flutter_tools_chrome_device.GCSID1/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/MANIFEST-000001
+2024/09/27-20:27:41.794 a803 Recovering log #3
+2024/09/27-20:27:41.794 a803 Reusing old log /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.xJBI0R/flutter_tools_chrome_device.GCSID1/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/000003.log 
+2024/09/27-20:27:41.815 a103 Level-0 table #5: started
+2024/09/27-20:27:41.824 a103 Level-0 table #5: 4398 bytes OK
+2024/09/27-20:27:41.838 a103 Delete type=0 #3
+2024/09/27-20:27:41.838 a803 Manual compaction at level-0 from '\x00\x08\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x09\x00\x00\x00' @ 0 : 0; will stop at (end)

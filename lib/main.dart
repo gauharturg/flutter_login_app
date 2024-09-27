@@ -387,7 +387,7 @@ class _AuthScreenState extends State<AuthScreen>
                                 padding: const EdgeInsetsDirectional.only(end: 12.0), 
                                 child: IconButton(
                                   icon: Icon(
-                                    _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                    _isPasswordVisible ? Icons.close : Icons.check,
                                     color: Colors.black, 
                                   ),
                                   onPressed: () {
@@ -431,7 +431,7 @@ class _AuthScreenState extends State<AuthScreen>
                                   padding: const EdgeInsetsDirectional.only(end: 12.0), 
                                   child: IconButton(
                                     icon: Icon(
-                                      _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                      _isConfirmPasswordVisible ? Icons.close : Icons.check,
                                       color: Colors.black, 
                                     ),
                                     onPressed: () {

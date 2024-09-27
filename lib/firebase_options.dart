@@ -61,4 +61,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'logingaukhar.appspot.com',
     measurementId: 'G-EHNBSDLZK2',
   );
+
 }

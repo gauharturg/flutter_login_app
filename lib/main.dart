@@ -335,22 +335,26 @@ class _AuthScreenState extends State<AuthScreen>
                             controller: _passwordController,
                             decoration: InputDecoration(
                               labelText: 'Password',
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _isPasswordVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: Colors.grey[400],
+                              suffixIcon: Padding(
+                                padding: const EdgeInsetsDirectional.only(end: 12.0), 
+                                child: IconButton(
+                                  icon: Icon(
+                                    _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                    color: Colors.grey[400], 
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isPasswordVisible = !_isPasswordVisible;
+                                    });
+                                  },
                                 ),
-                                onPressed: () {
-                                  setState(() {
-                                    _isPasswordVisible = !_isPasswordVisible;
-                                  });
-                                },
                               ),
                             ),
                             obscureText: !_isPasswordVisible,
-                            onChanged: _checkPasswordValidity,
+                            onChanged: (value) {
+                              _checkPasswordValidity(value);
+                              _checkConfirmPasswordValidity(_confirmPasswordController.text);
+                            },
                           ),
                           const SizedBox(height: 6),
                           // Show password criteria
@@ -361,28 +365,33 @@ class _AuthScreenState extends State<AuthScreen>
                               controller: _confirmPasswordController,
                               decoration: InputDecoration(
                                 labelText: 'Confirm Password',
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _isConfirmPasswordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsetsDirectional.only(end: 12.0), 
+                                  child: IconButton(
+                                    icon: Icon(
+                                      _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                                      color: Colors.grey[400], 
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                                      });
+                                    },
                                   ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                                    });
-                                  },
                                 ),
                               ),
                               obscureText: !_isConfirmPasswordVisible,
                               onChanged: _checkConfirmPasswordValidity,
                             ),
+
+
                           const SizedBox(height: 12),
                           ElevatedButton(
-                            onPressed: _isSignUp ? _signUpWithEmail : _signInWithEmail,
+                            onPressed: (!_isSignUp || (_isPasswordValid && _isConfirmPasswordValid))
+                            ? (_isSignUp ? _signUpWithEmail : _signInWithEmail)
+                            : null,
                             child: Text(_isSignUp ? 'Sign Up' : 'Sign In'),
                           ),
-                          const SizedBox(height: 12),
                           const SizedBox(height: 12),
                           // Google Sign-In button
                           ElevatedButton.icon(
@@ -465,6 +474,7 @@ class _AuthScreenState extends State<AuthScreen>
             const Text('At least 1 special character'),
           ],
         ),
+        const SizedBox(height: 6),
       ],
     );
   }

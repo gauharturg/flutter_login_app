@@ -135,10 +135,21 @@ class _AuthScreenState extends State<AuthScreen>
       print('User signed up: ${userCredential.user?.email}');
       _showThankYouScreen();
     } catch (error) {
-      setState(() {
-        _errorMessage = error.toString(); 
-      });
+    if (error is FirebaseAuthException) {
+      if (error.code == 'email-already-in-use') {
+        setState(() {
+          _errorMessage = 'An account already exists with this email. Redirecting to Sign In.';
+        });
+        setState(() {
+          _isSignUp = false; 
+        });
+      } else {
+        setState(() {
+          _errorMessage = error.message ?? 'An unknown error occurred.';
+        });
+      }
     }
+  }
   }
 
   // Sign in with Email & Password
@@ -158,8 +169,16 @@ class _AuthScreenState extends State<AuthScreen>
       print('User signed in: ${userCredential.user?.email}');
       _showThankYouScreen();
     } catch (error) {
+      String message = '';
+      if (error is FirebaseAuthException) {
+        if (error.code == 'invalid-credential') {
+          message = 'Incorrect email address or password. Please try again.';
+        } else {
+          message = 'An unknown error occurred. Please reload the page.';
+        }
+      }
       setState(() {
-        _errorMessage = error.toString(); 
+        _errorMessage = message;
       });
     }
   }
@@ -186,6 +205,35 @@ class _AuthScreenState extends State<AuthScreen>
       });
     }
   }
+
+  Future<void> _sendPasswordResetEmail() async {
+  if (_emailController.text.isEmpty) {
+    setState(() {
+      _errorMessage = 'Please enter your email to reset password.';
+    });
+    return;
+  }
+
+  try {
+    await _auth.sendPasswordResetEmail(email: _emailController.text);
+    setState(() {
+      _errorMessage = 'A password reset link has been sent to your email.';
+    });
+  } catch (error) {
+    if (error is FirebaseAuthException) {
+      if (error.code == 'invalid-credential') {
+        setState(() {
+          _errorMessage = 'No user found with this email.';
+        });
+      } else {
+        setState(() {
+          _errorMessage = 'Failed to send reset email. Try again later.';
+        });
+      }
+    }
+  }
+}
+
 
   void _showThankYouScreen() {
     Navigator.pushReplacement(
@@ -340,7 +388,7 @@ class _AuthScreenState extends State<AuthScreen>
                                 child: IconButton(
                                   icon: Icon(
                                     _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                                    color: Colors.grey[400], 
+                                    color: Colors.black, 
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -356,6 +404,20 @@ class _AuthScreenState extends State<AuthScreen>
                               _checkConfirmPasswordValidity(_confirmPasswordController.text);
                             },
                           ),
+                          const SizedBox(height: 3),
+                          if (!_isSignUp)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextButton(
+                                  onPressed: _sendPasswordResetEmail, // Add your reset email logic here
+                                  child: const Text(
+                                    'Forgot Password?',
+                                    style: TextStyle(color: Colors.white70),
+                                  ),
+                                ),
+                              ],
+                            ),
                           const SizedBox(height: 6),
                           // Show password criteria
                           _isSignUp ? _buildPasswordCriteria() : Container(),
@@ -370,7 +432,7 @@ class _AuthScreenState extends State<AuthScreen>
                                   child: IconButton(
                                     icon: Icon(
                                       _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                                      color: Colors.grey[400], 
+                                      color: Colors.black, 
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -528,7 +590,7 @@ class ThankYouScreen extends StatelessWidget {
                 onTap: () => _launchURL('https://linkedin.com/in/gaukh'),
                 child: Text(
                   'linkedin.com/in/gaukh',
-                  style: TextStyle(fontSize: 16, color: Colors.blue, decoration: TextDecoration.underline),
+                  style: TextStyle(fontSize: 16, color: const Color.fromARGB(255, 89, 144, 190), decoration: TextDecoration.underline),
                 ),
               ),
               SizedBox(height: 6),

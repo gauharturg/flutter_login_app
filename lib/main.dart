@@ -160,10 +160,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
-                              // Replace the "EXP" text with an animated GIF
                               Image.network(
-                                'web/icons/EXP-logo.gif', // Update with the actual path to your GIF
-                                height: 120, // Adjust height as needed
+                                'web/icons/EXP-logo.gif', 
+                                height: 120,
                                 fit: BoxFit.contain,
                               ),
                               const SizedBox(height: 32),
@@ -201,7 +200,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               OutlinedButton.icon(
                                 onPressed: _signInWithGoogle,
                                 icon: Image.network(
-                                  "https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo-thumbnail.png",
+                                  'web/icons/Google__logo.png',
                                   height: 24,
                                   width: 24,
                                 ),

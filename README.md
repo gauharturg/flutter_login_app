@@ -53,7 +53,7 @@ To run the app, use the following command:
 flutter run -d chrome --web-port=5555
 ```
 
-You can also run it in an emulator or on a physical device.
+for older version deployed refer to https://gauharturg.github.io/flutter_login_app/
 
 
 ## Contact

@@ -1,3 +1,4 @@
-2024/09/27-16:37:04.642 8303 Creating DB /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.QPnWgt/flutter_tools_chrome_device.8MR5zM/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb since it was missing.
-2024/09/27-16:37:04.655 8303 Reusing MANIFEST /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.QPnWgt/flutter_tools_chrome_device.8MR5zM/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/MANIFEST-000001
-2024/09/27-16:37:04.679 9b03 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/09/27-19:24:11.907 a203 Reusing MANIFEST /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.Heov5y/flutter_tools_chrome_device.HQArJW/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/MANIFEST-000001
+2024/09/27-19:24:11.908 a203 Recovering log #3
+2024/09/27-19:24:11.908 a203 Reusing old log /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.Heov5y/flutter_tools_chrome_device.HQArJW/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/000003.log 
+2024/09/27-19:24:11.928 8e03 Manual compaction at level-0 from '\x00\x07\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x08\x00\x00\x00' @ 0 : 0; will stop at (end)

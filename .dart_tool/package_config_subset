@@ -83,9 +83,9 @@ google_sign_in_web
 file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/google_sign_in_web-0.12.4+2/
 file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/google_sign_in_web-0.12.4+2/lib/
 http
-3.3
-file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/http-1.2.2/
-file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/http-1.2.2/lib/
+2.19
+file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/http-0.13.6/
+file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/http-0.13.6/lib/
 http_parser
 2.12
 file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/http_parser-4.0.2/
@@ -166,6 +166,10 @@ web
 3.4
 file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/web-1.1.0/
 file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/web-1.1.0/lib/
+flutter_login_app
+3.5
+file:///Users/gaukharturgambekova/fla/
+file:///Users/gaukharturgambekova/fla/lib/
 sky_engine
 3.2
 file:///Users/gaukharturgambekova/flutter/bin/cache/pkg/sky_engine/
@@ -182,8 +186,4 @@ flutter_web_plugins
 3.2
 file:///Users/gaukharturgambekova/flutter/packages/flutter_web_plugins/
 file:///Users/gaukharturgambekova/flutter/packages/flutter_web_plugins/lib/
-flutter_login_app
-3.5
-file:///Users/gaukharturgambekova/flutter_login_app/flutter_login_app/
-file:///Users/gaukharturgambekova/flutter_login_app/flutter_login_app/lib/
 2

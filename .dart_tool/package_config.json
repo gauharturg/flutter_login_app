@@ -147,9 +147,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/http-1.2.2",
+      "rootUri": "file:///Users/gaukharturgambekova/.pub-cache/hosted/pub.dev/http-0.13.6",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "2.19"
     },
     {
       "name": "http_parser",
@@ -284,7 +284,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-09-27T03:11:19.850329Z",
+  "generated": "2024-09-27T10:13:17.867988Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///Users/gaukharturgambekova/flutter",

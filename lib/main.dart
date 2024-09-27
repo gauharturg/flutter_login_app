@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_options.dart';
 import 'dart:ui';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -202,11 +203,11 @@ class _AuthScreenState extends State<AuthScreen>
                                   color: Colors.grey,
                                 ),
                               ),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 12),
                               Text(
                                 "Flutter Task",
                                 style: TextStyle(
-                                  fontSize: 36,
+                                  fontSize: 30,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey,
                                 ),
@@ -350,9 +351,39 @@ class ThankYouScreen extends StatelessWidget {
               onPressed: () => _signOut(context),
               child: const Text('Log Out'),
             ),
+            const SizedBox(height: 40),
+            Text(
+                'Gaukhar Turgambekova',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 6),
+              SelectableText(
+                'gauharturg@gmail.com',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 6),
+              InkWell(
+                onTap: () => _launchURL('https://linkedin.com/in/gaukh'),
+                child: Text(
+                  'linkedin.com/in/gaukh',
+                  style: TextStyle(fontSize: 16, color: Colors.blue, decoration: TextDecoration.underline),
+                ),
+              ),
+              SizedBox(height: 6),
+              SelectableText(
+                '+85252631235',
+                style: TextStyle(fontSize: 16),
+              ),
           ],
         ),
       ),
     );
+  }
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
   }
 }

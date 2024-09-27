@@ -1,8 +1,17 @@
-2024/09/27-20:33:35.864 a003 Reusing MANIFEST /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.juRyH5/flutter_tools_chrome_device.JILVvC/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/MANIFEST-000001
-2024/09/27-20:33:35.865 a003 Recovering log #4
-2024/09/27-20:33:35.865 a003 Reusing old log /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.juRyH5/flutter_tools_chrome_device.JILVvC/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/000004.log 
-2024/09/27-20:33:35.865 a003 Delete type=0 #3
-2024/09/27-20:33:35.888 8b03 Level-0 table #8: started
-2024/09/27-20:33:35.891 8b03 Level-0 table #8: 922 bytes OK
-2024/09/27-20:33:35.898 8b03 Delete type=0 #4
-2024/09/27-20:33:35.899 a703 Manual compaction at level-0 from '\x00\x09\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0a\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/09/28-01:05:10.697 8303 Reusing MANIFEST /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.4ut6T9/flutter_tools_chrome_device.B92LZu/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/MANIFEST-000001
+2024/09/28-01:05:10.698 8303 Recovering log #10
+2024/09/28-01:05:10.698 8303 Reusing old log /private/var/folders/b4/k7jcbv_s30q4llpdp_rtwvgc0000gn/T/flutter_tools.4ut6T9/flutter_tools_chrome_device.B92LZu/Default/IndexedDB/http_localhost_5555.indexeddb.leveldb/000010.log 
+2024/09/28-01:05:10.698 8303 Delete type=0 #7
+2024/09/28-01:05:10.698 8303 Delete type=0 #4
+2024/09/28-01:05:10.698 8303 Delete type=0 #3
+2024/09/28-01:05:10.698 8303 Delete type=2 #8
+2024/09/28-01:05:10.729 8c03 Level-0 table #15: started
+2024/09/28-01:05:10.733 8c03 Level-0 table #15: 6590 bytes OK
+2024/09/28-01:05:10.741 8c03 Delete type=0 #10
+2024/09/28-01:05:10.742 8303 Manual compaction at level-0 from '\x00\x0b\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0c\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0b\x00\x00\x05' @ 415 : 1
+2024/09/28-01:05:10.742 8303 Compacting 1@0 + 1@1 files
+2024/09/28-01:05:10.747 8303 Generated table #16@0: 28 keys, 3276 bytes
+2024/09/28-01:05:10.747 8303 Compacted 1@0 + 1@1 files => 3276 bytes
+2024/09/28-01:05:10.755 8303 compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/09/28-01:05:10.755 8303 Delete type=2 #15
+2024/09/28-01:05:10.756 8303 Manual compaction at level-0 from '\x00\x0b\x00\x00\x05' @ 415 : 1 .. '\x00\x0c\x00\x00\x00' @ 0 : 0; will stop at (end)

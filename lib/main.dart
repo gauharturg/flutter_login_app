@@ -70,10 +70,21 @@ class _AuthScreenState extends State<AuthScreen>
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  bool _isSignUp = false;
   String _errorMessage = '';
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
   late Animation<double> _blurAnimation;
+
+  // Password visibility variables
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
+  // Password criteria flags
+  bool _isPasswordValid = false;
+  bool _isConfirmPasswordValid = false;
 
   @override
   void initState() {
@@ -109,21 +120,36 @@ class _AuthScreenState extends State<AuthScreen>
 
   // Sign up with Email & Password
   Future<void> _signUpWithEmail() async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      setState(() {
+        _errorMessage = 'Email and Password cannot be empty.';
+      });
+      return;
+    }
+
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
       print('User signed up: ${userCredential.user?.email}');
+      _showThankYouScreen();
     } catch (error) {
       setState(() {
-        _errorMessage = error.toString();
+        _errorMessage = error.toString(); 
       });
     }
   }
 
   // Sign in with Email & Password
   Future<void> _signInWithEmail() async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      setState(() {
+        _errorMessage = 'Email and Password cannot be empty.';
+      });
+      return;
+    }
+
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: _emailController.text,
@@ -133,7 +159,7 @@ class _AuthScreenState extends State<AuthScreen>
       _showThankYouScreen();
     } catch (error) {
       setState(() {
-        _errorMessage = error.toString();
+        _errorMessage = error.toString(); 
       });
     }
   }
@@ -156,7 +182,7 @@ class _AuthScreenState extends State<AuthScreen>
       _showThankYouScreen();
     } catch (error) {
       setState(() {
-        _errorMessage = error.toString();
+        _errorMessage = error.toString(); 
       });
     }
   }
@@ -168,61 +194,89 @@ class _AuthScreenState extends State<AuthScreen>
     );
   }
 
+  void _toggleSignUp() {
+    setState(() {
+      _isSignUp = !_isSignUp;
+      _errorMessage = ''; 
+      _emailController.clear();
+      _passwordController.clear();
+      _confirmPasswordController.clear();
+      _isPasswordValid = false;
+      _isConfirmPasswordValid = false;
+    });
+  }
+
+  void _checkPasswordValidity(String password) {
+    setState(() {
+      _isPasswordValid = password.length >= 8 &&
+          RegExp(r'[A-Z]').hasMatch(password) &&
+          RegExp(r'[a-z]').hasMatch(password) &&
+          RegExp(r'[0-9]').hasMatch(password) &&
+          RegExp(r'[@$!%*?&]').hasMatch(password);
+    });
+  }
+
+  void _checkConfirmPasswordValidity(String confirmPassword) {
+    setState(() {
+      _isConfirmPasswordValid = confirmPassword == _passwordController.text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
         children: [
-          // Animated text background
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: const Color(0xFF121212),
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (context, child) {
-                  return FadeTransition(
-                    opacity: _opacityAnimation,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Center(
-                        child: ImageFiltered(
-                          imageFilter: ImageFilter.blur(
-                            sigmaX: _blurAnimation.value,
-                            sigmaY: _blurAnimation.value,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Gaukhar Turgambekova's",
-                                style: TextStyle(
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
+          if (MediaQuery.of(context).size.width > 600)
+            Expanded(
+              flex: 1,
+              child: Container(
+                color: const Color(0xFF121212),
+                child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) {
+                    return FadeTransition(
+                      opacity: _opacityAnimation,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Center(
+                          child: ImageFiltered(
+                            imageFilter: ImageFilter.blur(
+                              sigmaX: _blurAnimation.value,
+                              sigmaY: _blurAnimation.value,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Gaukhar Turgambekova's",
+                                  style: TextStyle(
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                "Flutter Task",
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
+                                const SizedBox(height: 12),
+                                Text(
+                                  "Flutter Task",
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          // Login Card
+
           Expanded(
             flex: 1,
             child: Center(
@@ -245,64 +299,109 @@ class _AuthScreenState extends State<AuthScreen>
                             height: 120,
                             fit: BoxFit.contain,
                           ),
-                          const SizedBox(height: 32),
-                          TextField(
-                            controller: _emailController,
-                            decoration: const InputDecoration(labelText: 'Email'),
-                          ),
-                          const SizedBox(height: 16),
-                          TextField(
-                            controller: _passwordController,
-                            decoration: const InputDecoration(labelText: 'Password'),
-                            obscureText: true,
-                          ),
-                          const SizedBox(height: 32),
-                          ElevatedButton(
-                            onPressed: _signInWithEmail,
-                            child: const Text('Sign In'),
-                          ),
-                          const SizedBox(height: 16),
-                          OutlinedButton(
-                            onPressed: _signUpWithEmail,
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Colors.white),
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                            Center(
+                            child: Text(
+                              _isSignUp ? 'Create an Account' : 'Welcome Back!',
+                              style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                               ),
                             ),
-                            child: const Text('Sign Up'),
-                          ),
-                          const SizedBox(height: 24),
-                          const Divider(color: Colors.white30),
-                          const SizedBox(height: 24),
-                          OutlinedButton.icon(
-                            onPressed: _signInWithGoogle,
-                            icon: Image.network(
-                              'web/icons/Google__logo.png',
-                              height: 24,
-                              width: 24,
                             ),
-                            label: const Text('Sign in with Google'),
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Colors.white30),
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
+                          const SizedBox(height: 12),
                           if (_errorMessage.isNotEmpty)
                             Padding(
-                              padding: const EdgeInsets.only(top: 16),
+                              padding: const EdgeInsets.only(bottom: 16),
                               child: Text(
                                 _errorMessage,
-                                style: const TextStyle(color: Colors.red),
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 14,
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
+                          // Email field
+                          TextField(
+                            controller: _emailController,
+                            decoration: const InputDecoration(
+                              labelText: 'Email',
+                            ),
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          const SizedBox(height: 12),
+                          // Password field
+                          TextField(
+                            controller: _passwordController,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isPasswordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey[400],
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isPasswordVisible = !_isPasswordVisible;
+                                  });
+                                },
+                              ),
+                            ),
+                            obscureText: !_isPasswordVisible,
+                            onChanged: _checkPasswordValidity,
+                          ),
+                          const SizedBox(height: 6),
+                          // Show password criteria
+                          _isSignUp ? _buildPasswordCriteria() : Container(),
+                          // Confirm Password field for Sign Up only
+                          if (_isSignUp)
+                            TextField(
+                              controller: _confirmPasswordController,
+                              decoration: InputDecoration(
+                                labelText: 'Confirm Password',
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _isConfirmPasswordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                                    });
+                                  },
+                                ),
+                              ),
+                              obscureText: !_isConfirmPasswordVisible,
+                              onChanged: _checkConfirmPasswordValidity,
+                            ),
+                          const SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: _isSignUp ? _signUpWithEmail : _signInWithEmail,
+                            child: Text(_isSignUp ? 'Sign Up' : 'Sign In'),
+                          ),
+                          const SizedBox(height: 12),
+                          const SizedBox(height: 12),
+                          // Google Sign-In button
+                          ElevatedButton.icon(
+                            onPressed: _signInWithGoogle,
+                            icon: Image.asset(
+                              'icons/Google__logo.png',
+                              width: 24, 
+                              height: 24, 
+                            ),
+                            label: Text( _isSignUp ? 'Sign up with Google' : 'Sign in with Google'),
+                          ),
+                          const SizedBox(height: 12),
+                          TextButton(
+                            onPressed: _toggleSignUp,
+                            child: Text(
+                              _isSignUp ? 'Already have an account? Sign In' : 'Don\'t have an account? Sign Up',
+                              style: const TextStyle(color: Colors.white70),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -315,13 +414,65 @@ class _AuthScreenState extends State<AuthScreen>
       ),
     );
   }
-}
+
+    Widget _buildPasswordCriteria() {
+    bool hasMinLength = _passwordController.text.length >= 8;
+    bool hasUppercase = RegExp(r'[A-Z]').hasMatch(_passwordController.text);
+    bool hasLowercase = RegExp(r'[a-z]').hasMatch(_passwordController.text);
+    bool hasNumber = RegExp(r'[0-9]').hasMatch(_passwordController.text);
+    bool hasSpecialChar = RegExp(r'[@$!%*?&]').hasMatch(_passwordController.text);
+    
+    return Column(
+      children: [
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Icon(hasMinLength ? Icons.check : Icons.close,
+                color: hasMinLength ? Colors.green : Colors.red),
+            const SizedBox(width: 8),
+            const Text('At least 8 characters'),
+          ],
+        ),
+        Row(
+          children: [
+            Icon(hasUppercase ? Icons.check : Icons.close,
+                color: hasUppercase ? Colors.green : Colors.red),
+            const SizedBox(width: 8),
+            const Text('At least 1 uppercase letter'),
+          ],
+        ),
+        Row(
+          children: [
+            Icon(hasLowercase ? Icons.check : Icons.close,
+                color: hasLowercase ? Colors.green : Colors.red),
+            const SizedBox(width: 8),
+            const Text('At least 1 lowercase letter'),
+          ],
+        ),
+        Row(
+          children: [
+            Icon(hasNumber ? Icons.check : Icons.close,
+                color: hasNumber ? Colors.green : Colors.red),
+            const SizedBox(width: 8),
+            const Text('At least 1 number'),
+          ],
+        ),
+        Row(
+          children: [
+            Icon(hasSpecialChar ? Icons.check : Icons.close,
+                color: hasSpecialChar ? Colors.green : Colors.red),
+            const SizedBox(width: 8),
+            const Text('At least 1 special character'),
+          ],
+        ),
+      ],
+    );
+  }
+  }
 
 class ThankYouScreen extends StatelessWidget {
   final FirebaseAuth auth;
-
   const ThankYouScreen({Key? key, required this.auth}) : super(key: key);
-
   Future<void> _signOut(BuildContext context) async {
     await auth.signOut();
     Navigator.pushReplacement(
@@ -329,6 +480,7 @@ class ThankYouScreen extends StatelessWidget {
       MaterialPageRoute(builder: (context) => const AuthScreen()),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +498,7 @@ class ThankYouScreen extends StatelessWidget {
               'Thank you for your attention!',
               style: TextStyle(fontSize: 24),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _signOut(context),
               child: const Text('Log Out'),
